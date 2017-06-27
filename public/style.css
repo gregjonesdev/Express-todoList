@@ -1,0 +1,12 @@
+
+ul {
+  list-style: none;
+}
+
+li {
+  text-decoration: line-through;
+}
+
+.incomplete {
+  text-decoration: none;
+}
