@@ -12,30 +12,40 @@ app.set('view engine','mustache')
 app.set('views',__dirname + '/views')
 app.use(express.static('public'))
 
+app.use(bodyParser.urlencoded({ extended: false }));
+
+const incompleteList = data.incompleteList
 
 
 app.get('/', function (req, res) {
 
-
-
-
-
-
-
+  //res.render('index', {list: theList})
   res.render('index')
 })
 
-app.post('/', function (req, res){
+app.post('/add', function (req, res){
 
+  let newTask = req.body.newTask;
+  let newItem = {"task": newTask}
+  incompleteList.push(newItem)
 
- let theList = data.list
-
-
-
-res.render('index', {list: theList})
+  res.render('index', {incomplete: incompleteList})
 
 })
 
+
+
+app.post('/complete', function (req, res) {
+
+//add task to complete
+
+
+//remove task from incomplete
+
+
+
+//res.render('index', {list: theList})
+})
 
 
 
