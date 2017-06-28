@@ -5,17 +5,19 @@ const bodyParser = require('body-Parser')
 const path = require('path');
 const expressValiator = require('express-validator')
 
-const data = require('./public/data')
+const incom = require('./public/incomplete')
+const com = require('./public/complete')
+
 
 app.engine('mustache',mustache())
 app.set('view engine','mustache')
 app.set('views',__dirname + '/views')
 app.use(express.static('public'))
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
-const incompleteList = data.incompleteList
-
+const incompleteList = incom.list
+const completeList = com.list
 
 app.get('/', function (req, res) {
 
@@ -26,9 +28,11 @@ app.get('/', function (req, res) {
 app.post('/add', function (req, res){
 
   let newTask = req.body.newTask;
+
+  console.log("req.body.newTask: " + req.body.newTask)
+
   let newItem = {"task": newTask}
   incompleteList.push(newItem)
-
   res.render('index', {incomplete: incompleteList})
 
 })
@@ -39,12 +43,22 @@ app.post('/complete', function (req, res) {
 
 //add task to complete
 
+ let completedTask = req.body.compTask
 
-//remove task from incomplete
+ //console.log(completedTask)
+
+for (i=0; i<incompleteList.length; i++) {
+  if (incompleteList[i]["task"]===completedTask) {
+  console.log(incompleteList[i]["task"])
+  completeList.push(incompleteList[i])
+  incompleteList.splice(i, 1)
+
+}
+ }
 
 
+res.render('index', {complete: completeList, incomplete: incompleteList})
 
-//res.render('index', {list: theList})
 })
 
 

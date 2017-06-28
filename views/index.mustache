@@ -7,20 +7,24 @@
   </head>
   <body>
     <h2>To do list</h2>
+
     <form class="" action="/add" method="post">
-      <input type="text" name="newTask" value="{{newTask}}"  placeholder="Enter to do">
+      <input type="text" name="newTask" value=""  placeholder="Enter to do">
       <input type="submit" value="submit">
     </form>
     <br>
 
 
       {{#incomplete}}
-          <form class="" action="/complete" method="post"><input type="submit" value="complete"></input>{{task}}</form>
+          <form class="" action="/complete" method="post" name="Complet33ed1"><input type="submit" value="Completed" name="complete"></input>  <input type="hidden" value="{{task}}" name="compTask">{{task}}</input></form>
       {{/incomplete}}
+      <h3>Completed Tasks:</h3>
+      <ul class="completed">
+      {{#complete}}
+          <li class="compTask">{{task}}</li>
+      {{/complete}}
 
-      <!-- {{#complete}}
-          {{task}}<br>
-      {{/complete}} -->
+
 
 
 
